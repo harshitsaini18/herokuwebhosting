@@ -1,0 +1,224 @@
+.subform {
+    top: 6rem;
+    position: relative;
+    width: 70%;
+    background: #ecf2f9
+}
+
+
+/* homepage/ */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.hero {
+    background: #1d2026;
+    min-height: 160vh;
+    width: 100vw;
+    color: #fff;
+    position: absolute;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    padding: 20px 8%;
+}
+
+nav .menu-img {
+    width: 25px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+nav .logo {
+    width: 160px;
+    cursor: pointer;
+}
+
+nav ul {
+    flex: 1;
+    text-align: right;
+}
+
+nav ul li {
+    display: inline-block;
+    list-style: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+button {
+    background: #efefef;
+    height: 30px;
+    width: 60px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 0.5s;
+}
+
+button span {
+    display: block;
+    background: #999;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    margin-left: 2px;
+    transition: background 0.5s, margin-left 0.5s;
+}
+
+.lamp-container {
+    position: absolute;
+    top: -20px;
+    left: 22%;
+    width: 11rem;
+}
+
+.lamp {
+    width: 100%;
+}
+
+.light {
+    position: absolute;
+    top: 97%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 347%;
+    margin-left: -10px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.text-container {
+    max-width: 600px;
+    margin-top: 7%;
+    margin-left: 50%;
+}
+
+.text-container h1 {
+    font-size: 4.8em;
+    font-weight: 400;
+}
+
+.text-container a {
+    text-decoration: none;
+    background: #00986f;
+    height: 52px;
+    width: 18rem;
+    text-align: center;
+    padding-top: 13px;
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    margin: 30px;
+    border-radius: 30px;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 150px;
+    position: relative;
+    left: -32px;
+}
+
+.control .line {
+    width: 250px;
+    height: 4px;
+    background: #fff;
+    margin: 0 20px;
+    border-radius: 2px;
+}
+
+.control .line span {
+    width: 50%;
+    height: 8px;
+    margin-top: -2px;
+    border-radius: 4px;
+    background: #00986f;
+    display: block;
+}
+
+.active {
+    background: green;
+}
+
+.active span {
+    background: #fff;
+    margin-left: 31px;
+}
+
+.on {
+    opacity: 1;
+}
+
+.tLamp {
+    position: absolute;
+    right: 20vw;
+    top: 4rem;
+    z-index: 55;
+}
+
+.bsubject {
+    height: 0.2%;
+    padding: 0.4em 0.2em 0.23em 0.2em;
+    margin-top: 11px;
+}
+
+.swal-button {
+    padding: 10px 24px;
+}
+
+@media (max-width:481px) {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    .text-container {
+        max-width: 600px;
+        margin-top: 7%;
+        position: relative;
+        /* margin-left: 50%; */
+        top: 14rem;
+    }
+    .zm {
+        zoom: 90%;
+    }
+    .text-container {
+        /* max-width: 600px; */
+        margin-top: 0;
+        margin-left: 0;
+    }
+    .subform {
+        width: 100%;
+    }
+    .fcontainer {
+        width: 129%;
+        position: relative;
+        left: -22px;
+    }
+    .sbox {
+        width: 100%;
+        position: relative;
+    }
+    .light {
+        width: 223%;
+    }
+}
+
+@media (max-width:787px) {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    .tl {
+        display: none;
+    }
+    .control {
+        display: none;
+    }
+}

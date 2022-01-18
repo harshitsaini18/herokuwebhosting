@@ -1,0 +1,651 @@
+{{>header}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+  .subjectArr {
+    display: none;
+  }
+
+  .TestData {
+    display: none;
+  }
+
+  .sel {
+    display: flex;
+    justify-content: center;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    position: absolute;
+    top: 5rem;
+    width: 100vw;
+    color: #2e383e;
+  }
+
+  .dropdown {
+    position: relative;
+    box-sizing: content-box;
+    width: 210px;
+    height: 1em;
+    padding: 18px 21px;
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown:hover svg {
+    transform: scale(1.1);
+  }
+
+  .dropdown button {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .dropdown button:focus~svg {
+    transform: rotate(-180deg);
+  }
+
+  .dropdown .options {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .dropdown input {
+    display: none;
+  }
+
+  .dropdown input:checked+label {
+    display: block;
+    z-index: 2;
+    font-weight: 600;
+    transform: none !important;
+  }
+
+  .dropdown label {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    padding: 18px 21px;
+    line-height: 1;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s ease;
+  }
+
+  .dropdown label:hover {
+    background-color: #d6d6d6;
+  }
+
+  .dropdown button:focus+.options input:not(:checked)+label,
+  .dropdown .options label:active,
+  .dropdown .options label:active~label {
+    transform: translateY(calc(var(--index) * 100%));
+  }
+
+  .dropdown button:focus+.options input:checked+label~label,
+  .dropdown .options input:checked~label:active,
+  .dropdown .options input:checked~label:active~label {
+    transform: translateY(calc((var(--index) - 1) * 100%));
+  }
+
+  .dropdown svg {
+    position: absolute;
+    width: 21px;
+    top: 25%;
+    right: 14px;
+    z-index: 2;
+    fill: currentColor;
+    transition: transform 0.1s;
+  }
+
+  .chartcanvas1 {
+    position: relative;
+    top: 38rem;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chartcanvas3 {
+    width: 100vw;
+    position: relative;
+    top: 40rem;
+
+  }
+
+  .dppData {
+    position: absolute;
+    top: 10rem;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
+
+  .btncontainer {
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 38rem;
+    flex-direction: column;
+  }
+
+  .radio_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #cecece;
+    width: 280px;
+    height: 50px;
+    border-radius: 9999px;
+    box-shadow: inset 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .btncontainer input[type="radio"] {
+    appearance: none;
+    display: none;
+  }
+
+  .btncontainer label {
+    font-family: "Open Sans", sans-serif;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    border-radius: 9999px;
+    overflow: hidden;
+    transition: linear 0.3s;
+    color: #6e6e6edd;
+  }
+
+  .btncontainer input[type="radio"]:checked+label {
+    background-color: #1e90ff;
+    color: #f1f3f5;
+    font-weight: 900;
+    transition: 0.3s;
+  }
+
+  
+.whitebuttondemo {
+  position: relative;
+  bottom: -47rem;
+    margin: 20px auto;
+    padding: 20px 0;
+    width: 200px;
+}
+
+.whitebuttondemo a {
+    background: #e25734;
+    color: #fff;
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    font-family:'Arial',Verdana,sans-serif;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 200px;
+    position: relative;
+    z-index: 2;
+    transition: 350ms;
+}
+
+{{!-- .whitebuttondemo a:before {
+    font-family: 'Material Icons';
+   content: "e2c4";
+    font-weight: normal;
+    padding: 8px;
+    margin-left: -12px;
+    margin-right: 6px;
+} --}}
+
+.whitebuttondemo a:hover {
+    color: #fff;
+}
+
+.whitebuttondemo span {
+    background: #444;
+    color: #fff;
+    display: block;
+    font-size: 12px;
+    font-family: 'Arial', Verdana,sans-serif;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 200px;
+    z-index: 1;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.whitebuttondemo .up {
+    background: #444;
+    margin: -25px auto;
+    opacity: 0;
+    border-radius: 0 0 10px 10px;
+    transform: translate(0,-50px);
+    transition: 350ms;
+}
+
+.whitebuttondemo:hover .up {
+    opacity: 1;
+    transform: translate(0,0);
+}
+  #container1{
+    width:80%; height:500px;
+  }
+   #container2{
+    width:80%; height:33.25rem;
+  }
+  @media (max-width:787px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+
+ #container1{
+    width:100%; height:500px;
+  }
+
+ #container2{
+    width:100%; height:33.25rem;
+  }
+}
+</style>
+
+{{>nav}}
+
+<body style="background-color: #ebebeb;">
+  <div class="sel">
+    <div class="dropdown">
+
+      <button></button>
+
+      <div class="options">
+        <input id="radio-africa" type="radio" name="region" onclick="subselect(this.value)" value="Physics" checked>
+        <label style="--index: 1" for="radio-africa">Physics</label>
+        <input id="radio-asia" type="radio" name="region" onclick="subselect(this.value)" value="Chemistry">
+        <label style="--index: 2" for="radio-asia">Chemistry</label>
+
+        <input id="radio-australia" type="radio" name="region" onclick="subselect(this.value)" value="Maths">
+        <label style="--index: 3" for="radio-australia">Maths</label>
+
+      </div>
+
+      <svg viewBox="0 0 24 24">
+        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+      </svg>
+
+    </div>
+  </div>
+
+  <div>
+    {{#each subjectArr}}
+    <div class="subjectArr">{{this}}</div>
+    {{/each}}
+  </div>
+  <div>
+    {{#each TestData}}
+    <div class="TestData">{{this}}</div>
+    {{/each}}
+  </div>
+  <div class="dppData">
+    <div id="container2"></div>
+  </div>
+  <div class="btncontainer">
+    <span>zoom</span>
+    <div class="radio_container">
+      <input type="radio" name="radio" onchange="handleChange(this.value);" id="xy" value="xy" checked>
+      <label for="xy">XY</label>
+      <input type="radio" name="radio" onchange="handleChange(this.value);" id="y" value="y">
+      <label for="y">Y</label>
+      <input type="radio" name="radio" onchange="handleChange(this.value);" id="x" value="x">
+      <label for="x">X</label>
+    </div>
+  </div>
+  <div class="chartcanvas1 ">
+    <div id="container1" ></div>
+  </div>
+  <div class="chartcanvas3 ">
+    <div id="container" style="width:100%; height:400px;"></div>
+  </div>
+
+<div>
+  <div class="whitebuttondemo">
+<a href="/downloaddppdata" >Download Data</a><br>
+<span class="up">click to Download</span></div>
+<br>
+</div>
+
+</body>
+<script>
+  //data formatting
+  let chartColors = {
+    darkBlue: '#2196f3',
+    darkGreen: '#4CAF50',
+    red: 'rgba(255, 99, 132, 0.5)',
+    darkRed: 'rgba(255, 99, 132)',
+    orange: 'rgba(255, 159, 64, 0.5)',
+    darkOrange: 'rgba(255, 159, 64)',
+    yellow: 'rgba(255, 205, 86, 0.5)',
+    green: 'rgba(75, 192, 192, 0.5)',
+    blue: 'rgba(54, 162, 235, 0.5)',
+    purple: 'rgba(153, 102, 255, 0.5)',
+    grey: 'rgba(231, 233, 237, 0.5)'
+  };
+  let subData = []
+  let testData = []
+  let marks = [{{ scoreArr }}];
+  let completed = [{{ completeArr }}];
+  let date = []
+  Array.from(document.getElementsByClassName("subjectArr")).forEach(function (sub) {
+    subData.push(sub.innerText)
+  });
+  Array.from(document.getElementsByClassName("TestData")).forEach(function (subq) {
+    testData.push(JSON.parse(subq.innerText))
+  });
+
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  [{{ dateArr }}].map(String).forEach((dt) => {
+    date.push(dt.substring(0, 2) + '-' + months[Number(dt.substring(3, 5)) - 1]);
+  })
+  //data sorting
+  let phymarksArr = [];
+  let chemmarksArr = [];
+  let mathsmarksArr = [];
+  let phycompArr = [];
+  let chemcompArr = [];
+  let mathscompArr = [];
+  let phydateArr = [];
+  let chemdateArr = [];
+  let mathsdateArr = [];
+
+  for (i in subData) {
+    if (subData[i] == 'physics') {
+      phymarksArr.push(marks[i])
+      phycompArr.push(completed[i])
+      phydateArr.push(date[i])
+    } else if (subData[i] == 'chemistry') {
+      chemmarksArr.push(marks[i])
+      chemcompArr.push(completed[i])
+      chemdateArr.push(date[i])
+    } else if (subData[i] == "maths") {
+      mathsmarksArr.push(marks[i])
+      mathscompArr.push(completed[i])
+      mathsdateArr.push(date[i])
+    }
+  }
+  //test data sorting
+  let ptmarks = [];
+  let ctmarks = [];
+  let mtmarks = [];
+  let ptcompArr = [];
+  let ctcompArr = [];
+  let mtcompArr = [];
+  let tdateArr = [];
+  let total = [];
+
+  for (const i in testData) {
+    ptmarks.push(testData[i].physics.score)
+    ctmarks.push(testData[i].chemistry.score)
+    mtmarks.push(testData[i].maths.score)
+    ptcompArr.push(testData[i].physics.complete)
+    ctcompArr.push(testData[i].chemistry.complete)
+    mtcompArr.push(testData[i].maths.complete)
+    tdateArr.push(testData[i].date.substring(0, 2) + '-' + months[Number(testData[i].date.substring(3, 5)) - 1])
+    total.push(testData[i].physics.score + testData[i].maths.score + testData[i].chemistry.score)
+  }
+
+  //chart
+
+  let pcolor;
+  let ccolor;
+  let mcolor;
+
+  var x = phymarksArr.length;
+  var y = chemmarksArr.length;
+  var z = mathsmarksArr.length;
+  if (x > y && x > z) {
+    if (y > z) {
+      pcolor = '#38FF74';
+      ccolor = '#309EFF';
+      mcolor = '#FF4343';
+    }
+    else {
+      pcolor = '#38FF74';
+      ccolor = '#FF4343';
+      mcolor = '#309EFF';
+    }
+  }
+  else if (y > x && y > z) {
+    if (x > z) {
+      pcolor = '#309EFF';
+      ccolor = '#38FF74';
+      mcolor = '#FF4343';
+    }
+    else {
+      pcolor = '#FF4343';
+      ccolor = '#38FF74';
+      mcolor = '#309EFF';
+    }
+  }
+  else if (z > x && z > y) {
+    if (x > y) {
+      pcolor = '#309EFF';
+      ccolor = '#FF4343';
+      mcolor = '#38FF74';
+    }
+    else {
+      pcolor = '#FF4343';
+      ccolor = '#309EFF';
+      mcolor = '#38FF74';
+    }
+  }
+  //pie chart
+  document.addEventListener('DOMContentLoaded', function () {
+    const chart = Highcharts.chart('container', {
+      chart: {
+        type: 'pie',
+        backgroundColor: '#ebebeb'
+      },
+      title: {
+        text: 'Prctice Done'
+      },
+      accessibility: {
+        announceNewData: {
+          enabled: true
+        },
+        point: {
+          valueSuffix: '%'
+        }
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false
+          },
+          showInLegend: true
+        }
+      },
+      series: [{
+        data: [{
+          name: 'Physics',
+          y: phymarksArr.length,
+          color: pcolor
+        }, {
+          name: 'Chemistry',
+          y: chemmarksArr.length,
+          color: ccolor
+        }, {
+          name: 'Maths',
+          y: mathsmarksArr.length,
+          color: mcolor
+        }]
+      }]
+    });
+  });
+  //test chart
+  var chart1;
+  document.addEventListener('DOMContentLoaded', function () {
+    chart1 = Highcharts.chart('container1', {
+      chart: {
+        backgroundColor: '#ebebeb',
+        zoomType: 'xy'
+      },
+      title: {
+        text: 'Test Progress',
+        align: 'left'
+      },
+      plotOptions: {
+        series: {
+          grouping: true,
+          borderWidth: 0
+        }
+      },
+      legend: {
+        enabled: true
+      },
+      tooltip: {
+        shared: true,
+        headerFormat: '<span style="font-size: 15px">{point.point.name}</span><br/>',
+        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y} %</b><br/>'
+      },
+      xAxis: {
+        categories: tdateArr
+      },
+      yAxis: {
+        title: {
+          text: 'Marks in Percentage'
+        }
+      },
+      series: [{
+        type: 'line',
+        color: chartColors.darkRed,
+        name: 'Physics  Marks%',
+        data: ptmarks
+      }, {
+        type: 'column',
+        color: chartColors.red,
+        name: 'Physics  Completed',
+        data: ptcompArr
+      }, {
+        type: 'line',
+        color: chartColors.darkGreen,
+        name: 'Chemistry  Marks%',
+        data: ctmarks
+      }, {
+        type: 'column',
+        color: chartColors.green,
+        name: 'Chemistry  Completed',
+        data: ctcompArr
+      }, {
+        type: 'line',
+        color: chartColors.darkOrange,
+        name: 'Maths Marks%',
+        data: mtmarks
+      }, {
+        type: 'column',
+        color: chartColors.orange,
+        name: 'Maths Completed',
+        data: mtcompArr
+      }, {
+        type: 'line',
+        color: "#21aaff",
+        name: 'Tolal',
+        data: total
+      }, {
+        type: 'column',
+        color: "#21aaff",
+        name: 'Total',
+        data: total
+      }]
+    });
+  });
+
+  //dpp chart
+  var chart2;
+  function createDppHighChart(subname, submarksArr, subcompArr, subdateArr, color1, color2) {
+    chart2 = Highcharts.chart("container2", {
+      chart: {
+        backgroundColor: '#ebebeb',
+        zoomType: 'xy'
+      },
+      title: {
+        text: 'Dpp Progress',
+        align: 'left'
+      },
+      plotOptions: {
+        series: {
+          grouping: false,
+          borderWidth: 0
+        }
+      },
+      legend: {
+        enabled: true
+      },
+      tooltip: {
+        shared: true,
+        headerFormat: '<span style="font-size: 15px">{point.point.name}</span><br/>',
+        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y} %</b><br/>'
+      },
+      xAxis: {
+        categories: subdateArr
+      },
+      yAxis: {
+        title: {
+          text: subname + '-' + 'Marks in Percentage'
+        }
+      },
+      series: [{
+        type: 'column',
+        color: color2,
+        name: 'Dpp Completed',
+        data: subcompArr
+      }, {
+        type: 'line',
+        color: color1,
+        name: 'Dpp Marks%',
+        data: submarksArr
+      }]
+    });
+
+
+  };
+
+
+  function subselect(subName) {
+    if (subName == 'Physics') {
+      createDppHighChart('Physics', phymarksArr, phycompArr, phydateArr, chartColors.darkGreen, chartColors.blue)
+    } else if (subName == 'Chemistry') {
+      createDppHighChart('Chemistry', chemmarksArr, chemcompArr, chemdateArr, chartColors.darkBlue, chartColors.green)
+    } else if (subName == "Maths") {
+      createDppHighChart("Maths", mathsmarksArr, mathscompArr, mathsdateArr, chartColors.darkRed, chartColors.purple)
+    }
+  }
+  createDppHighChart('Physics', phymarksArr, phycompArr, phydateArr, chartColors.darkGreen, chartColors.blue);
+
+  function handleChange(src) {
+    console.log(src);
+    chart1.update({ chart: { zoomType: src } })
+    chart2.update({ chart: { zoomType: src } })
+  }
+
+</script>
